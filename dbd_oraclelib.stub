@@ -1,0 +1,96 @@
+;;;
+;;; dbd_oraclelib.stub
+;;;
+
+"
+#include \"dbd_oracle.h\"
+"
+
+(define-type <oracle-error> "Scm_OCIError *" "Oracle Error Handle")
+(define-type <oracle-svcctx> "Scm_OCISvcCtx *" "Oracle Service Context")
+(define-type <oracle-stmt> "Scm_OCIStmt *" "Oracle Statement Handle")
+(define-type <oracle-param-metadata> "Scm_OCIParamMetadata *" "Oracle Parameter Metadata")
+
+(define-cproc make-oracle-error ()
+  ::<list>
+  Scm_make_oracle_error)
+
+(define-cproc oracle-error-close (err::<oracle-error>)
+  ::<void>
+  Scm_oracle_error_close)
+
+(define-cproc error->message (status::<int> err::<oracle-error>)
+  ::<list>
+  Scm_error_to_message)
+
+(define-cproc oracle-connect (err::<oracle-error> user::<const-cstring> passwd::<const-cstring> dbname::<const-cstring>)
+  ::<list>
+  Scm_oracle_connect)
+
+(define-cproc oracle-disconnect (err::<oracle-error> conn::<oracle-svcctx>)
+  ::<list>
+  Scm_oracle_disconnect)
+
+(define-cproc oracle-stmt-prepare (err::<oracle-error> sql::<const-cstring>)
+  ::<list>
+  Scm_oracle_stmt_prepare)
+
+(define-cproc oracle-stmt-close (stmt::<oracle-stmt>)
+  ::<void>
+  Scm_oracle_stmt_close)
+
+(define-cproc oracle-stmt-bind-count (err::<oracle-error> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_bind_count)
+
+(define-cproc oracle-stmt-bind-init (err::<oracle-error> stmt::<oracle-stmt> pos::<uint32> type::<int> size::<uint32>)
+  ::<list>
+  Scm_oracle_stmt_bind_init)
+
+(define-cproc oracle-stmt-bind-set! (err::<oracle-error> stmt::<oracle-stmt> pos::<uint32> val)
+  ::<list>
+  Scm_oracle_stmt_bind_set)
+
+(define-cproc oracle-stmt-bind-ref (err::<oracle-error> stmt::<oracle-stmt> pos::<uint32>)
+  ::<list>
+  Scm_oracle_stmt_bind_ref)
+
+(define-cproc oracle-stmt-column-init (err::<oracle-error> stmt::<oracle-stmt> pos::<uint32> type::<int> size::<uint32>)
+  ::<list>
+  Scm_oracle_stmt_column_init)
+
+(define-cproc oracle-stmt-column-ref (err::<oracle-error> stmt::<oracle-stmt> pos::<uint32>)
+  ::<list>
+  Scm_oracle_stmt_column_ref)
+
+(define-cproc oracle-stmt-execute (err::<oracle-error> conn::<oracle-svcctx> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_execute)
+
+(define-cproc oracle-stmt-fetch (err::<oracle-error> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_fetch)
+
+(define-cproc oracle-stmt-type (err::<oracle-error> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_type)
+
+(define-cproc oracle-stmt-row-count (err::<oracle-error> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_row_count)
+
+(define-cproc oracle-stmt-params (err::<oracle-error> stmt::<oracle-stmt>)
+  ::<list>
+  Scm_oracle_stmt_params)
+
+(define-enum BIND_STRING)
+(define-enum BIND_INTEGER)
+(define-enum BIND_REAL)
+
+(define-enum SQLT_NUM)
+
+(define-enum OCI_STMT_SELECT)
+
+;; Local variables:
+;; mode: scheme
+;; end:
