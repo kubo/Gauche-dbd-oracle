@@ -1,10 +1,9 @@
 What's is Gauche-dbd-oracle
 ===========================
 
-This is an Oracle module for Gauche-dbi_.
-Supported Oracle versions are Oracle 9i and upper.
+This is an Oracle module for Gauche_.
 
-.. _Gauche-dbi: http://www.kahua.org/show/dev/DBI
+.. _Gauche: http://practical-scheme.net/gauche/
 
 How to Install
 ==============
@@ -45,3 +44,22 @@ Forth, make sure that LD_LIBRARY_PATH indicates the installed directory::
 Fifth, run the following command::
 
   gauche-package install -C --with-instant-client=/opt/instantclient_11_1 Gauche-dbd-oracle-0.0.1.tgz
+
+Usage
+=====
+
+Gauche-dbd-oracle is a DBD module of Gauche-dbi_. Look at the Gauche-dbi_ for usage.
+
+.. _Gauche-dbi: http://practical-scheme.net/gauche/man/?l=en&p=dbi
+
+The DSN format of dbd-oracle is: "dbi:oracle:TNS_NAME" or "dbi:oracle://HOSTNAME:PORT/SID_NAME".
+Username and password are passed as keywords as follows::
+
+   (define conn (dbi-connect "dbi:oracle://localhost/XE" :username "scott" :password "tiger"))
+
+Restrictions
+============
+
+* Oralce 8i or lower is not supported.
+* Transactions are not supported. All DMLs are automatically committed.
+* Date and timestamp data types are retrieved as string values.
